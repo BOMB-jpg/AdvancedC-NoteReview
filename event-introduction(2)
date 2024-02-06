@@ -24,10 +24,10 @@ namespace ConsoleApplication3
         }
     }
 
-    class Counter
+    class Counter//计数器
     {
-        private int threshold;
-        private int total;
+        private int threshold; //阈值
+        private int total;  //总计
 
         public Counter(int passedThreshold)
         {
@@ -44,21 +44,30 @@ namespace ConsoleApplication3
                 args.TimeReached = DateTime.Now;
                 OnThresholdReached(args);
             }
+// Counter 类中的一个方法 Add。它接收一个整数参数 x，将其加到 total 变量上，
+//并检查是否达到了阈值 (threshold)。如果达到了阈值，则创建一个 ThresholdReachedEventArgs 
+//的实例，设置阈值和当前时间，然后调用 OnThresholdReached 方法来触发 ThresholdReached 事件，
+//将事件参数传递给事件处理程序。
         }
 
         protected virtual void OnThresholdReached(ThresholdReachedEventArgs e)
         {
             EventHandler<ThresholdReachedEventArgs> handler = ThresholdReached;
+//
             if (handler != null)
             {
-                handler(this, e);
+                handler(this, e); 
+                //它创建一个委托实例，然后调用委托，将当前对象 (this) 和事件参数 (e) 传递给事件处理程序。
+                //通过将此方法声明为虚拟的，可以在派生类中重写该方法以实现特定的行为。
             }
         }
 
         public event EventHandler<ThresholdReachedEventArgs> ThresholdReached;
     }
 
-    public class ThresholdReachedEventArgs : EventArgs
+    public class ThresholdReachedEventArgs : EventArgs    
+//它通常用作事件参数类的基类，以便在事件触发时传递额外的数据给事件处理程序。
+//它继承自 EventArgs 并添加了 Threshold 和 TimeReached 属性，用于携带阈值和达到阈值的时间信息。
     {
         public int Threshold { get; set; }
         public DateTime TimeReached { get; set; }
