@@ -6,7 +6,10 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Counter c = new Counter(new Random().Next(10));
+            Counter c = new Counter(new Random().Next(10));   //.Next(10) 是 Random 类的方法之一，用于生成一个大于等于 0 且小于指定值的随机整数。在这里，
+         //.Next(10) 会生成一个介于 0 和 9 之间的随机整数，作为阈值传递给 Counter 类的构造函数。
+           // 这行代码使用 += 运算符将 c_ThresholdReached 方法添加到 ThresholdReached 事件的委托列表中，
+      //因此当 ThresholdReached 事件触发时，c_ThresholdReached 方法将被调用。
             c.ThresholdReached += c_ThresholdReached;
 
             Console.WriteLine("press 'a' key to increase total");
@@ -17,16 +20,16 @@ namespace ConsoleApplication1
             }
         }
 
-        static void c_ThresholdReached(object sender, EventArgs e)
+        static void c_ThresholdReached(object sender, EventArgs e)  //相关链接方法进行执行
         {
             Console.WriteLine("The threshold was reached.");
             Environment.Exit(0);
         }
     }
 
-    class Counter
+    class Counter  //计数器
     {
-        private int threshold;
+        private int threshold;   //阈值
         private int total;
 
         public Counter(int passedThreshold)
@@ -40,6 +43,7 @@ namespace ConsoleApplication1
             if (total >= threshold)
             {
                 ThresholdReached?.Invoke(this, EventArgs.Empty);
+ // ThresholdReached 是一个EventHandler类型的事件 什么是eventhandler事件
             }
         }
 
