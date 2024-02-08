@@ -1,0 +1,83 @@
+//这段代码是一个简单的观察者模式的实现，用于监视和通知外部访客（ExternalVisitor）的到来
+// Corrected interface name
+public interface IEmployee
+{
+     //员工的通用行为
+}
+
+// Employee class implementing the IEmployee interface
+public class Employee : IEmployee
+{
+  //表示一个员工
+
+}
+
+// ExternalVisitor class
+public class ExternalVisitor
+{
+//表示外部员工
+}
+
+// Observer interface for observing ExternalVisitor
+public interface IObserver<T>  //观察者的行为
+{
+    void Update(T data);
+}
+
+// Observable interface for observing ExternalVisitor
+public interface IObservable<T>   //可观察者的行为
+{
+    void Attach(IObserver<T> observer);
+    void Detach(IObserver<T> observer);
+    void Notify(T data);
+}
+
+// EmployeeNotify class implementing the IObserver interface
+public class EmployeeNotify : IObserver<ExternalVisitor>
+{
+//表示能够接收到观察者的通知
+    public EmployeeNotify(IEmployee employee)
+    {
+        // Implementation for EmployeeNotify constructor
+    }
+
+    public void Update(ExternalVisitor data)
+    {
+        // Implementation for Update method
+    }
+}
+
+// Security Surveillance Hub class implementing the IObservable interface
+public class SecuritySurveillanceHub : IObservable<ExternalVisitor>
+{
+//表示安全控制中心
+    private List<IObserver<ExternalVisitor>> observers = new List<IObserver<ExternalVisitor>>();
+
+    public void Attach(IObserver<ExternalVisitor> observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void Detach(IObserver<ExternalVisitor> observer)
+    {
+        observers.Remove(observer);
+    }
+
+    public void Notify(ExternalVisitor data)
+    {
+        foreach (var observer in observers)
+        {
+            observer.Update(data);
+        }
+    }
+}
+
+// SecurityNotify class implementing the IObserver interface
+public class SecurityNotify : IObserver<ExternalVisitor>
+{   
+//外部访客能够接收到通知
+    public void Update(ExternalVisitor data)
+    {
+        // Implementation for Update method
+    }
+}
